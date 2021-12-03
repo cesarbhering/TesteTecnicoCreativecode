@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import "dotenv/config";
 
 const Pool = require("pg").Pool;
 const pool = new Pool({
@@ -9,7 +9,8 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-export function getUsers() { // Query para pegar todos os usuários da tabela users
+export function getUsers() {
+  // Query para pegar todos os usuários da tabela users
   try {
     return pool.query("SELECT * FROM users");
   } catch (error) {
@@ -17,20 +18,22 @@ export function getUsers() { // Query para pegar todos os usuários da tabela us
   }
 }
 
-export function getUserById(id) { // Query para pegar um usuário específico da tabela users
+export function getUserById(id) {
+  // Query para pegar um usuário específico da tabela users
   try {
     return pool.query("SELECT * FROM users WHERE id = $1", [id]);
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 }
-export function createUser(name, email) { // Query para criar um usuário na tabela users
+export function createUser(name, email) {
+  // Query para criar um usuário na tabela users
   try {
-    return pool.query("INSERT INTO users (name, email) VALUES ($1, $2) RETURNING id, name, email",  [name, email]);
-  }
-  catch (error) {
+    return pool.query(
+      "INSERT INTO users (name, email) VALUES ($1, $2) RETURNING id, name, email",
+      [name, email]
+    );
+  } catch (error) {
     console.log(error);
   }
 }
-

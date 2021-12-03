@@ -3,8 +3,8 @@ import request from "supertest";
 
 describe("Endpoints", () => {
 
-  it("should be able to see all users", done => {
-    const response = request(server).get("/").send().expect(200);
-    done();
+  it("should be able to see all users",  () => {
+    const teste = request(server).get("/").expect(200);
+
   });
 });

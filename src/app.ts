@@ -6,7 +6,7 @@ const route = Router();
 
 route.get("/", (_req: Request, res: Response) => {
   // Rota para listar todos os usuários cadastrados
-  const allUsers: Object = getUsers().then((users) => {
+  getUsers().then((users) => {
     return res.status(200).json(users.rows);
   });
 });
