@@ -10,7 +10,7 @@ describe("Testando o endpoint GET '/'", () => {
     return pool.query("ROLLBACK");
   });
 
-  it("Retorna 'Nenhum usuário cadastrado' quando não há usuários cadastrados", () => {
+  it("Retorna status 200 e a mensagem 'Nenhum usuário cadastrado' quando não há usuários cadastrados", () => {
     return request(app)
       .get("/")
       .expect(200)
@@ -19,7 +19,7 @@ describe("Testando o endpoint GET '/'", () => {
       });
   });
 
-  it("Retorna as informações do usuário quando há um usuário cadastrado", async () => {
+  it("Retorna status 200 e as informações do usuário quando há um usuário cadastrado", async () => {
     await request(app).post("/").send({
       name: "Fulano",
       email: "fulano@hotmail.com",
@@ -33,6 +33,32 @@ describe("Testando o endpoint GET '/'", () => {
             name: "Fulano",
             email: "fulano@hotmail.com",
           },
+        ]);
+      });
+  });
+
+  it("Retorna status 200 e as informações dos usuários quando há mais de um usuário cadastrado", async () => {
+    await request(app).post("/").send({
+      name: "Fulano",
+      email: "fulano@hotmail.com",
+    });
+    await request(app).post("/").send({
+      name: "Beltrano",
+      email: "beltrano@bol.com.br",
+    });
+    return request(app)
+      .get("/")
+      .expect(200)
+      .then((response) => {
+        expect(response.body).toEqual([
+          {
+            name: "Fulano",
+            email: "fulano@hotmail.com",
+          },
+          {
+            name: "Beltrano",
+            email: "beltrano@bol.com.br"
+          }
         ]);
       });
   });
