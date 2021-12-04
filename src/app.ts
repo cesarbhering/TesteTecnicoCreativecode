@@ -1,13 +1,16 @@
 import { Request, Response } from "express";
-import { getUsers, getUserById, createUser,  } from "./models/queries";
+import {
+  getUsers,
+  getUserById,
+  createUser,
+  deleteUser,
+} from "./models/queries";
 import { validateUserSchema } from "./middlewares/validateUserSchema";
 import express from "express";
-
 
 const app = express();
 
 app.use(express.json());
-
 
 app.get("/", (_req: Request, res: Response) => {
   // Rota para listar todos os usuários cadastrados
@@ -15,7 +18,19 @@ app.get("/", (_req: Request, res: Response) => {
     if (users.rows.length === 0) {
       res.status(200).send("Nenhum usuário cadastrado");
     } else {
-    return res.status(200).json(users.rows);
+      return res.status(200).json(users.rows);
+    }
+  });
+});
+
+app.get("/:id", (req: Request, res: Response) => {
+  // Rota para listar um usuário pelo id
+  const { id } = req.params;
+  getUserById(id).then((user) => {
+    if (user.rows.length === 0) {
+      res.status(404).send("Usuário não encontrado");
+    } else {
+      return res.status(200).json(user.rows);
     }
   });
 });
@@ -28,21 +43,14 @@ app.post("/", validateUserSchema, (req: Request, res: Response) => {
   });
 });
 
-app.get("/:id", (req: Request, res: Response) => {
-  // Rota para listar um usuário específico baseado em seu id
-  const user: Object = getUserById(req.params.id).then((user) => {
-    res.json(user.rows);
-  });
-});
-
-app.delete("/:id", (req: Request, res: Response) => {
+app.delete("/:id", async (req: Request, res: Response) => {
   // Rota para deletar um usuário específico baseado em seu id
-  const user: Object = getUserById(req.params.id).then((user) => {
+  const user = await getUserById(req.params.id).then((user) => {
     if (user.rows.length === 0) {
-      res.status(404).send("Usuário não encontrado");
+      return res.status(404).send("Usuário não encontrado");
     } else {
-      const deleteUser: Object = getUserById(req.params.id).then((user) => {
-        res.json(user.rows);
+      return deleteUser(req.params.id).then((user) => {
+        return res.status(204).send();
       });
     }
   });
