@@ -1,0 +1,5 @@
+process.env.DB_USER="creativecode"
+process.env.DB_PASSWORD="creativecode"
+process.env.DB_HOST="localhost"
+process.env.DB_PORT="5432"
+process.env.DB_NAME="creativecode_test"

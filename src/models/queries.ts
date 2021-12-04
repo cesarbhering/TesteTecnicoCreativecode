@@ -1,7 +1,7 @@
 import "dotenv/config";
 
 const Pool = require("pg").Pool;
-const pool = new Pool({
+export const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
@@ -12,7 +12,7 @@ const pool = new Pool({
 export function getUsers() {
   // Query para pegar todos os usuários da tabela users
   try {
-    return pool.query("SELECT * FROM users");
+    return pool.query("SELECT name, email FROM users");
   } catch (error) {
     console.log(error);
   }
@@ -30,7 +30,7 @@ export function createUser(name, email) {
   // Query para criar um usuário na tabela users
   try {
     return pool.query(
-      "INSERT INTO users (name, email) VALUES ($1, $2) RETURNING id, name, email",
+      "INSERT INTO users (name, email) VALUES ($1, $2) RETURNING name, email",
       [name, email]
     );
   } catch (error) {
