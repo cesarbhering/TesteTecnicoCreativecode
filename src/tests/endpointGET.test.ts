@@ -3,8 +3,18 @@ import request from "supertest";
 import { pool } from "../models/queries";
 
 describe("Testando o endpoint GET '/' e GET '/:id'", () => {
-  beforeAll(() => {
-    return pool.query("TRUNCATE TABLE users RESTART IDENTITY;");
+  beforeAll(async () => {
+    await pool.query("CREATE DATABASE creativecode2;");
+    await pool.query("USE creativecode2;");
+    await pool.query(`
+      CREATE TABLE users (
+        id INT NOT NULL AUTO_INCREMENT,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        PRIMARY KEY (id)
+      );
+    `);
+    await pool.query("TRUNCATE TABLE users RESTART IDENTITY;");
   });
 
   afterAll(async () => {

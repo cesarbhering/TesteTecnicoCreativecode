@@ -1,7 +1,6 @@
-process.env.POSTGRES_USER="creativecode"
-process.env.POSTGRES_PASSWORD="creativecode"
-process.env.DB_USER="creativecode"
-process.env.DB_PASSWORD="creativecode"
-process.env.DB_HOST="postgres"
-process.env.DB_PORT="5432"
-process.env.DB_NAME="creativecode"
+process.env.POSTGRES_USER='postgres'
+process.env.POSTGRES_PASSWORD='postgres'
+process.env.POSTGRES_DB='docker'
+process.env.APP_DB_USER='creativecode'
+process.env.APP_DB_PASS='creativecode'
+process.env.APP_DB_NAME='creativecode2'
