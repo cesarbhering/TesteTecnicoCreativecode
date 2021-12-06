@@ -4,16 +4,7 @@ import { pool } from "../models/queries";
 
 describe("Testando o endpoint GET '/' e GET '/:id'", () => {
   beforeAll(async () => {
-    await pool.query("CREATE DATABASE creativecode2;");
-    await pool.query("USE creativecode2;");
-    await pool.query(`
-      CREATE TABLE users (
-        id INT NOT NULL AUTO_INCREMENT,
-        name VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL,
-        PRIMARY KEY (id)
-      );
-    `);
+    console.log(pool);
     await pool.query("TRUNCATE TABLE users RESTART IDENTITY;");
   });
 
