@@ -1,13 +1,18 @@
 FROM node
+EXPOSE 3000 9229
 
-WORKDIR /dist
+WORKDIR /home/app
 
-COPY package.json /dist
+COPY package.json /home/app
+COPY package-lock.json /home/app
 
-RUN npm install
+COPY /db/01-init.sql /docker-entrypoint-initdb.d/
 
-COPY . .
 
-EXPOSE 3333
+RUN npm ci
 
-CMD ["npm", "start"] 
+COPY . /home/app
+
+RUN npm run build
+
+CMD ["npm", "run", "dev"]

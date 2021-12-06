@@ -2,17 +2,16 @@ import "dotenv/config";
 
 const Pool = require("pg").Pool;
 export const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  database: process.env.APP_DB_NAME,
+  user: process.env.APP_DB_USER,
+  host: "postgres",
+  password: process.env.APP_DB_PASS,
 });
 
 export function getUsers() {
   // Query para pegar todos os usuários da tabela users
   try {
-    return pool.query("SELECT * FROM users");
+    return pool.query("SELECT * FROM users",[]);
   } catch (error) {
     console.log(error);
   }
@@ -21,7 +20,7 @@ export function getUsers() {
 export function getUserById(id) {
   // Query para pegar um usuário específico da tabela users
   try {
-    return pool.query("SELECT * FROM users WHERE id = $1", [id]);
+    return pool.query("SELECT * FROM users WHERE id = ($1)", [id]);
   } catch (error) {
     console.log(error);
   }
