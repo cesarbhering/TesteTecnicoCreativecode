@@ -1,3 +1,5 @@
 process.env.APP_DB_USER="creativecode"
-process.env.DB_PASSWORD="creativecode"
+process.env.APP_DB_PASS="creativecode"
+process.env.DB_HOST="localhost"
 process.env.APP_DB_NAME="creativecode_test"
+process.env.APP_DB_HOST="localhost"

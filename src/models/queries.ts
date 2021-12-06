@@ -4,7 +4,7 @@ const Pool = require("pg").Pool;
 export const pool = new Pool({
   database: process.env.APP_DB_NAME,
   user: process.env.APP_DB_USER,
-  host: "postgres",
+  host: process.env.APP_DB_HOST,
   password: process.env.APP_DB_PASS,
 });
 

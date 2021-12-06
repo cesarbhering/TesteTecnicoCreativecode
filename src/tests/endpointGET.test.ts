@@ -3,9 +3,8 @@ import request from "supertest";
 import { pool } from "../models/queries";
 
 describe("Testando o endpoint GET '/' e GET '/:id'", () => {
-  beforeAll(async () => {
-    console.log(pool);
-    await pool.query("TRUNCATE TABLE users RESTART IDENTITY;");
+  beforeAll(() => {
+    return pool.query("TRUNCATE TABLE users RESTART IDENTITY;");
   });
 
   afterAll(async () => {

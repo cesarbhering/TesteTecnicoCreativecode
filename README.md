@@ -59,6 +59,12 @@ Devido a falta de experiência com o docker, não consegui sucesso em fazer o me
 
 Foi tentando com a ajuda da lib [dockest](https://github.com/erikengervall/dockest/), porém a mesma parece executar os testes assim que o container do postgres sobe, e não após o banco e tabela serem criados.
 
+Sendo assim, para realizar os testes é necessário: Colocar o postgreSQL para rodar, criar um usuario e senha creativecode, criar um banco de dados com o nome creativecode_test e dentro deste banco criar uma tablea chamada users, com uma coluna VARCHAR(255) name e uma coluna VARCHAR(255) email, e rodar o seguinte comando na pais raiz do projeto:
+
+```
+npm test
+```
+
 ------
 
 ### **O que pode ser melhorado**

@@ -17,6 +17,7 @@ const supertest_1 = __importDefault(require("supertest"));
 const queries_1 = require("../models/queries");
 describe("Testando o endpoint GET '/' e GET '/:id'", () => {
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        console.log(queries_1.pool);
         yield queries_1.pool.query("TRUNCATE TABLE users RESTART IDENTITY;");
     }));
     afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
