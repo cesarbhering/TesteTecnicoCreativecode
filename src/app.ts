@@ -26,15 +26,17 @@ app.get("/", (_req: Request, res: Response) => {
 app.get("/:id", (req: Request, res: Response) => {
   // Rota para listar um usuário pelo id
   const { id } = req.params;
-
-  const idINT = Number(id);
-  getUserById(idINT).then((user) => {
-    if (user.rows.length === 0) {
-      res.status(404).send("Usuário não encontrado");
-    } else {
-      return res.status(200).json(user.rows);
-    }
-  });
+  if (id !== 'favicon.ico') {
+    getUserById(Number(id)).then((user) => {
+      if (user.rows.length === 0) {
+        res.status(200).send("Usuário não encontrado");
+      } else {
+        return res.status(200).json(user.rows);
+      }
+    });
+  } else {
+    res.status(400).send("Id inválido");
+  }
 });
 
 app.post("/", validateUserSchema, (req: Request, res: Response) => {
